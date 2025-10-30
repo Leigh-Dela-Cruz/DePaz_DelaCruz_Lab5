@@ -4,6 +4,9 @@ using namespace std;
 
 void defaultDisplay();
 void displayTriangles();
+void rotatetriangle();  
+
+GLfloat angle = 0.0f; // this is for rotation angle 
 
 
 GLfloat colors[] = {
@@ -36,6 +39,8 @@ GLfloat quadvertices[] = {
 };
 
 void displayTriangles() {
+    glPushMatrix();
+	glRotatef(angle, 0.0f, 0.0f, 1.0f); 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
     glColorPointer(3, GL_FLOAT, 0, colors);
@@ -43,6 +48,8 @@ void displayTriangles() {
     glDrawArrays(GL_TRIANGLES, 0, 12);
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
+
+    glPopMatrix();
 }
 
 
@@ -50,6 +57,15 @@ void defaultDisplay() {
     glClear(GL_COLOR_BUFFER_BIT);
     displayTriangles();
     glFlush();
+}
+
+void rotatetriangle() {
+	angle += 0.05f; //responsible for making the rotation slower or faster
+	//currently the speed is set to slow, the smaller the value the slower the rotation
+    if (angle > 360.0f) {
+        angle -= 360.f;
+	}   
+	glutPostRedisplay();
 }
 
 int main(int argc, char** argv) {
@@ -60,6 +76,7 @@ int main(int argc, char** argv) {
     glutCreateWindow("DePaz_DelaCruz_Lab5");
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glutDisplayFunc(defaultDisplay);
+	glutIdleFunc(rotatetriangle);   
     glutMainLoop();
     return 0;
 }
