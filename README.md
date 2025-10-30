@@ -32,9 +32,9 @@ The project applies key OpenGL transformation functions such as:
 - **C++ compiler** (e.g., GCC, MSVC, or Visual Studio 2022)
 - **OpenGL** and **GLUT** libraries installed
 
-For Windows users, include:
+Note:
 ```cpp
-#include <GL/glut.h>
+#include <GL/glut.h> //for windows
 #include <GLUT/glut.h> //for Mac users
 
 
